@@ -1,0 +1,95 @@
+/* Import font: 'Amiri' untuk nuansa Arab/Islami yang elegan, 'Poppins' untuk teks biasa yang modern */
+@import url('https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Poppins:wght@300;400&display=swap');
+
+/* Styling untuk keseluruhan halaman */
+body {
+    font-family: 'Poppins', sans-serif;
+    /* Background langit malam Ramadhan yang tenang */
+    background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+    color: #e2e8f0;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Container utama (Dark Glassmorphism dengan sentuhan Emas) */
+.card {
+    width: 100%;
+    max-width: 500px;
+    background: rgba(15, 23, 42, 0.6); /* Warna gelap transparan */
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding: 40px 30px;
+    border-radius: 20px;
+    /* Efek cahaya emas (glowing) yang memancar dari belakang card */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5), 0 0 20px rgba(212, 175, 55, 0.15);
+    border: 1px solid rgba(212, 175, 55, 0.4); /* Garis tepi berwarna emas tipis */
+    text-align: center;
+    position: relative;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+}
+
+/* Efek melayang dan cahaya emas lebih terang saat di-hover */
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6), 0 0 30px rgba(212, 175, 55, 0.3);
+}
+
+/* Menambahkan ornamen bulan & bintang di atas card menggunakan CSS murni */
+.card::before {
+    content: '🌙✨';
+    font-size: 2.5rem;
+    display: block;
+    margin-bottom: 10px;
+    /* Memberikan efek glow pada emoji */
+    text-shadow: 0 0 15px rgba(243, 156, 18, 0.8); 
+    animation: float 3s ease-in-out infinite; /* Animasi melayang perlahan */
+}
+
+/* Animasi untuk elemen bulan & bintang */
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-8px); }
+    100% { transform: translateY(0px); }
+}
+
+/* Header utama */
+h1 {
+    font-family: 'Amiri', serif; /* Font dengan gaya kaligrafi / klasik */
+    font-size: 28px;
+    font-weight: 700;
+    color: #d4af37; /* Warna Emas Ramadhan */
+    margin-top: 0;
+    letter-spacing: 1px;
+    text-shadow: 0 2px 4px rgba(0,0,0,0.5); /* Bayangan teks agar lebih terbaca */
+}
+
+/* Paragraf */
+p {
+    font-size: 15px;
+    line-height: 1.8;
+    font-weight: 300;
+    color: #cbd5e1; /* Putih agak keabu-abuan agar tidak menyilaukan */
+}
+
+/* Garis pemisah yang elegan */
+hr {
+    border: none;
+    height: 1.5px;
+    /* Gradasi: Transparan -> Emas -> Transparan */
+    background: linear-gradient(90deg, rgba(212,175,55,0) 0%, rgba(212,175,55,0.8) 50%, rgba(212,175,55,0) 100%);
+    margin: 25px 0;
+}
+
+/* Greeting / Footer kecil */
+small {
+    display: block;
+    font-style: italic;
+    font-size: 13px;
+    color: #94a3b8;
+    letter-spacing: 1.5px;
+    margin-top: 15px;
+}
