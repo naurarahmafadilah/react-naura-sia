@@ -19,12 +19,7 @@ const Sidebar = () => {
       <ul className="space-y-4">
         
         <li
-          onClick={() => setActive("dashboard")}
-          className={`flex items-center gap-2 cursor-pointer ${
-            active === "dashboard"
-              ? "text-green-500 font-semibold"
-              : "text-gray-500"
-          }`}
+          
         >
           <FaHome /> Dashboard
         </li>

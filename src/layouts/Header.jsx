@@ -1,4 +1,4 @@
-import { FaBell, FaEnvelope, FaCog } from "react-icons/fa";
+import { FaBell, FaEnvelope, FaCog, FaSearch } from "react-icons/fa";
 import { useState } from "react";
 
 const Header = () => {
@@ -7,36 +7,48 @@ const Header = () => {
   return (
     <>
       {/* HEADER */}
-      <div className="flex items-center justify-between bg-white px-6 py-4 shadow">
-        
-        {/* SEARCH */}
-        <input
-          type="text"
-          placeholder="Search here..."
-          onClick={() => setOpen(true)}
-          className="border px-4 py-2 rounded-md w-1/3 outline-none"
-        />
+      <div className="flex items-center justify-between bg-white px-6 py-4 shadow-sm">
+
+        {/* SEARCH MODERN */}
+        <div className="relative w-1/3">
+          <FaSearch className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+
+          <input
+            type="text"
+            placeholder="Search..."
+            onClick={() => setOpen(true)}
+            className="w-full pl-10 pr-4 py-2 rounded-full border border-gray-200 bg-gray-50 
+            focus:bg-white focus:border-green-400 focus:ring-2 focus:ring-green-100 
+            hover:shadow-sm outline-none transition-all"
+          />
+        </div>
 
         {/* RIGHT */}
-        <div className="flex items-center gap-4">
-          
+        <div className="flex items-center gap-5">
+
+          {/* NOTIF */}
           <div className="relative">
-            <FaBell className="text-gray-500 text-xl" />
-            <span className="absolute -top-2 -right-2 bg-blue-500 text-white text-xs px-1 rounded-full">
-              50
+            <FaBell className="text-gray-500 text-xl cursor-pointer hover:text-green-500 transition" />
+            <span className="absolute -top-2 -right-2 bg-green-500 text-white text-xs px-1.5 rounded-full">
+              5
             </span>
           </div>
 
-          <FaEnvelope className="text-gray-500 text-xl" />
-          <FaCog className="text-gray-500 text-xl" />
+          {/* EMAIL */}
+          <FaEnvelope className="text-gray-500 text-xl cursor-pointer hover:text-green-500 transition" />
 
-          <div className="flex items-center gap-2">
+          {/* SETTINGS */}
+          <FaCog className="text-gray-500 text-xl cursor-pointer hover:text-green-500 transition" />
+
+          {/* PROFILE */}
+          <div className="flex items-center gap-2 cursor-pointer">
             <img
               src="https://i.pravatar.cc/40"
+              alt="profile"
               className="w-8 h-8 rounded-full"
             />
-            <span className="text-sm font-semibold">
-              Hello, Naura Rahma Fadilah
+            <span className="text-sm font-semibold text-gray-700">
+              Naura Rahma
             </span>
           </div>
         </div>
@@ -45,24 +57,26 @@ const Header = () => {
       {/* MODAL SEARCH */}
       {open && (
         <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-40"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-black/40 backdrop-blur-sm"
           onClick={() => setOpen(false)}
         >
           <div
-            className="bg-white p-6 rounded-lg w-[400px] shadow-lg"
+            className="bg-white p-6 rounded-xl w-[400px] shadow-xl animate-in fade-in zoom-in"
             onClick={(e) => e.stopPropagation()}
           >
-            <h2 className="text-lg font-bold mb-3">Search</h2>
+            <h2 className="text-lg font-semibold mb-4 text-gray-800">
+              Search
+            </h2>
 
             <input
               type="text"
               placeholder="Type something..."
-              className="border w-full px-3 py-2 rounded outline-none"
+              className="border w-full px-4 py-2 rounded-lg outline-none focus:ring-2 focus:ring-green-400"
             />
 
             <button
               onClick={() => setOpen(false)}
-              className="mt-4 bg-green-500 text-white px-4 py-2 rounded w-full"
+              className="mt-4 bg-green-500 text-white px-4 py-2 rounded-lg w-full hover:bg-green-600 transition"
             >
               Close
             </button>
