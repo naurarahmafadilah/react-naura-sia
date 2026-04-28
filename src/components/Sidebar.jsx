@@ -19,11 +19,10 @@ const Sidebar = () => {
   return (
     <div className="w-64 bg-white min-h-screen shadow-sm flex flex-col justify-between">
 
-      {/* TOP */}
+      {/* ===== TOP SECTION ===== */}
       <div>
-
         {/* LOGO */}
-        <div className="px-6 py-5">
+        <div className="px-6 py-5 border-b">
           <h1 className="text-2xl font-bold">
             Sedap<span className="text-green-500">.</span>
           </h1>
@@ -33,7 +32,7 @@ const Sidebar = () => {
         </div>
 
         {/* MENU */}
-        <nav className="px-4 space-y-2">
+        <nav className="px-4 py-4 space-y-2">
 
           <NavLink to="/" className={menuClass}>
             <FaHome size={18} />
@@ -73,8 +72,10 @@ const Sidebar = () => {
         </nav>
       </div>
 
-      {/* BOTTOM CARD */}
-      <div className="p-4">
+      {/* ===== BOTTOM SECTION ===== */}
+      <div className="p-4 space-y-4">
+
+        {/* CARD */}
         <div className="bg-green-500 text-white p-5 rounded-2xl">
           <p className="text-sm mb-4 leading-relaxed">
             Organize your menu easily with one click.
@@ -83,6 +84,17 @@ const Sidebar = () => {
             + Add Menu
           </button>
         </div>
+
+        {/* COPYRIGHT */}
+        <div className="text-center border-t pt-4">
+          <h2 className="text-sm font-bold text-gray-700">
+            Sedap Restaurant Admin
+          </h2>
+          <p className="text-xs text-gray-400 mt-1">
+            © 2025 All Rights Reserved
+          </p>
+        </div>
+
       </div>
 
     </div>
