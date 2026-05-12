@@ -1,21 +1,22 @@
-import Sidebar from "../components/Sidebar";
-import Header from "../components/Header";
 import PageHeader from "../components/PageHeader";
-
 import {
   FaShoppingCart,
   FaTruck,
   FaTimesCircle,
   FaDollarSign,
   FaUsers,
+  FaArrowUp,
 } from "react-icons/fa";
 
 import {
   PieChart,
   Pie,
+  Cell,
   LineChart,
   Line,
   XAxis,
+  YAxis,
+  CartesianGrid,
   Tooltip,
   ResponsiveContainer,
 } from "recharts";
@@ -29,143 +30,181 @@ const Dashboard = () => {
   ];
 
   const lineData = [
-    { name: "Sunday", value: 100 },
-    { name: "Monday", value: 200 },
-    { name: "Tuesday", value: 350 },
-    { name: "Wednesday", value: 200 },
-    { name: "Thursday", value: 150 },
-    { name: "Friday", value: 250 },
-    { name: "Saturday", value: 400 },
+    { name: "Sun", value: 100 },
+    { name: "Mon", value: 200 },
+    { name: "Tue", value: 350 },
+    { name: "Wed", value: 200 },
+    { name: "Thu", line: 150, value: 150 },
+    { name: "Fri", value: 250 },
+    { name: "Sat", value: 400 },
   ];
 
-  const COLORS = ["#ef4444", "#10b981", "#3b82f6"];
+  const COLORS = ["#10b981", "#3b82f6", "#f59e0b"]; // Emerald, Blue, Amber
 
   return (
+    <div className="p-6 font-barlow animate-in fade-in duration-700">
+      <PageHeader title="Dashboard Overview" breadcrumb={["Home", "Dashboard"]} />
 
-    <div className="p-6">
-      <PageHeader
-        title="Dashboard"
-        breadcrumb={["Home", "Dashboard"]}
-      />
-
-      {/* CARDS */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4 mt-6">
-
-        {/* CARD */}
-        <div className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition flex items-center gap-4">
-          <div className="bg-green-100 p-3 rounded-full">
-            <FaShoppingCart className="text-green-500" />
-          </div>
-          <div>
-            <h2 className="font-bold text-lg">75</h2>
-            <p className="text-gray-400 text-sm">Total Orders</p>
-          </div>
-        </div>
-
-        <div className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition flex items-center gap-4">
-          <div className="bg-blue-100 p-3 rounded-full">
-            <FaTruck className="text-blue-500" />
-          </div>
-          <div>
-            <h2 className="font-bold text-lg">175</h2>
-            <p className="text-gray-400 text-sm">Total Delivered</p>
-          </div>
-        </div>
-
-        <div className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition flex items-center gap-4">
-          <div className="bg-red-100 p-3 rounded-full">
-            <FaTimesCircle className="text-red-500" />
-          </div>
-          <div>
-            <h2 className="font-bold text-lg">40</h2>
-            <p className="text-gray-400 text-sm">Total Canceled</p>
-          </div>
-        </div>
-
-        <div className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition flex items-center gap-4">
-          <div className="bg-yellow-100 p-3 rounded-full">
-            <FaDollarSign className="text-yellow-500" />
-          </div>
-          <div>
-            <h2 className="font-bold text-lg">Rp.128</h2>
-            <p className="text-gray-400 text-sm">Total Revenue</p>
-          </div>
-        </div>
-
-        <div className="bg-white p-4 rounded-xl shadow-sm hover:shadow-md transition flex items-center gap-4">
-          <div className="bg-purple-100 p-3 rounded-full">
-            <FaUsers className="text-purple-500" />
-          </div>
-          <div>
-            <h2 className="font-bold text-lg">320</h2>
-            <p className="text-gray-400 text-sm">Total Customers</p>
-          </div>
-        </div>
-
+      {/* STATS CARDS */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-6 mt-8">
+        <StatCard 
+          icon={<FaShoppingCart />} 
+          label="Total Orders" 
+          value="75" 
+          trend="+12%" 
+          color="emerald" 
+        />
+        <StatCard 
+          icon={<FaTruck />} 
+          label="Delivered" 
+          value="175" 
+          trend="+5%" 
+          color="blue" 
+        />
+        <StatCard 
+          icon={<FaTimesCircle />} 
+          label="Canceled" 
+          value="40" 
+          trend="-2%" 
+          color="red" 
+        />
+        <StatCard 
+          icon={<FaDollarSign />} 
+          label="Revenue" 
+          value="Rp 12.8M" 
+          trend="+18%" 
+          color="amber" 
+        />
+        <StatCard 
+          icon={<FaUsers />} 
+          label="Customers" 
+          value="320" 
+          trend="+24%" 
+          color="purple" 
+        />
       </div>
 
       {/* CHART SECTION */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-10">
+        
+        {/* LINE CHART - 2/3 Width */}
+        <div className="lg:col-span-2 bg-white p-8 rounded-[2.5rem] shadow-soft border border-gray-100 relative overflow-hidden">
+          <div className="flex justify-between items-center mb-8 relative z-10">
+            <div>
+              <h2 className="font-poppins font-black text-gray-800 text-xl tracking-tight">Sales Performance</h2>
+              <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mt-1">Weekly analysis</p>
+            </div>
+            <div className="flex gap-2">
+              <button className="px-4 py-2 bg-gray-50 text-gray-500 rounded-xl text-xs font-bold hover:bg-emerald-50 hover:text-emerald-500 transition">Reports</button>
+            </div>
+          </div>
 
-        {/* PIE */}
-        <div className="bg-white p-6 rounded-xl shadow-sm">
-          <h2 className="font-semibold mb-4">Statistics</h2>
+          <div className="h-[300px] w-full relative z-10">
+            <ResponsiveContainer width="100%" height="100%">
+              <LineChart data={lineData}>
+                <defs>
+                  <linearGradient id="lineGradient" x1="0" y1="0" x2="0" y2="1">
+                    <stop offset="5%" stopColor="#10b981" stopOpacity={0.1}/>
+                    <stop offset="95%" stopColor="#10b981" stopOpacity={0}/>
+                  </linearGradient>
+                </defs>
+                <CartesianGrid strokeDasharray="3 3" vertical={false} stroke="#f3f4f6" />
+                <XAxis 
+                  dataKey="name" 
+                  axisLine={false} 
+                  tickLine={false} 
+                  tick={{fill: '#9ca3af', fontSize: 12, fontWeight: 'bold'}}
+                  dy={10}
+                />
+                <YAxis hide />
+                <Tooltip 
+                  contentStyle={{borderRadius: '16px', border: 'none', boxShadow: '0 10px 15px -3px rgba(0,0,0,0.1)'}}
+                />
+                <Line
+                  type="monotone"
+                  dataKey="value"
+                  stroke="#10b981"
+                  strokeWidth={4}
+                  dot={{ r: 6, fill: "#10b981", strokeWidth: 3, stroke: "#fff" }}
+                  activeDot={{ r: 8, strokeWidth: 0 }}
+                />
+              </LineChart>
+            </ResponsiveContainer>
+          </div>
+        </div>
 
-          <div className="flex justify-around">
-            {pieData.map((entry, index) => (
-              <div key={index} className="text-center">
-                <PieChart width={120} height={120}>
-                  <Pie
-                    data={[entry]}
-                    dataKey="value"
-                    innerRadius={30}
-                    outerRadius={50}
-                    fill={COLORS[index]}
-                  />
-                </PieChart>
-                <p className="text-sm mt-2 font-semibold">
-                  {entry.value}%
-                </p>
-                <p className="text-gray-400 text-xs">
-                  {entry.name}
-                </p>
+        {/* PIE CHART - 1/3 Width */}
+        <div className="bg-white p-8 rounded-[2.5rem] shadow-soft border border-gray-100 flex flex-col justify-center">
+          <h2 className="font-poppins font-black text-gray-800 text-xl tracking-tight mb-2 text-center">Business Reach</h2>
+          <p className="text-gray-400 text-xs font-bold uppercase tracking-widest mb-8 text-center">Current Statistics</p>
+
+          <div className="h-[250px] relative">
+            <ResponsiveContainer width="100%" height="100%">
+              <PieChart>
+                <Pie
+                  data={pieData}
+                  innerRadius={70}
+                  outerRadius={90}
+                  paddingAngle={8}
+                  dataKey="value"
+                >
+                  {pieData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  ))}
+                </Pie>
+                <Tooltip />
+              </PieChart>
+            </ResponsiveContainer>
+            {/* Center Text */}
+            <div className="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+              <span className="text-3xl font-black text-gray-800">85%</span>
+              <span className="text-[10px] font-black text-gray-400 uppercase">Efficiency</span>
+            </div>
+          </div>
+
+          <div className="mt-6 space-y-3">
+            {pieData.map((item, i) => (
+              <div key={i} className="flex items-center justify-between">
+                <div className="flex items-center gap-2">
+                  <div className="w-3 h-3 rounded-full" style={{backgroundColor: COLORS[i]}}></div>
+                  <span className="text-sm font-bold text-gray-600">{item.name}</span>
+                </div>
+                <span className="text-sm font-black text-gray-800">{item.value}%</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* LINE */}
-        <div className="bg-white p-6 rounded-xl shadow-sm">
-          <div className="flex justify-between items-center mb-4">
-            <div>
-              <h2 className="font-semibold">Order Chart</h2>
-              <p className="text-gray-400 text-xs">
-                Weekly performance
-              </p>
-            </div>
-
-            <button className="border px-3 py-1 rounded text-blue-500 hover:bg-blue-50">
-              Save
-            </button>
-          </div>
-
-          <ResponsiveContainer width="100%" height={220}>
-            <LineChart data={lineData}>
-              <XAxis dataKey="name" />
-              <Tooltip />
-              <Line
-                type="monotone"
-                dataKey="value"
-                stroke="#3b82f6"
-                strokeWidth={3}
-              />
-            </LineChart>
-          </ResponsiveContainer>
-        </div>
-
       </div>
     </div>
+  );
+};
 
+/* REUSABLE STAT CARD */
+const StatCard = ({ icon, label, value, trend, color }) => {
+  const colorMap = {
+    emerald: "bg-emerald-50 text-emerald-500",
+    blue: "bg-blue-50 text-blue-500",
+    red: "bg-red-50 text-red-500",
+    amber: "bg-amber-50 text-amber-500",
+    purple: "bg-purple-50 text-purple-500",
+  };
+
+  return (
+    <div className="bg-white p-6 rounded-[2rem] shadow-soft border border-gray-50 hover:shadow-xl transition-all duration-300 group cursor-default">
+      <div className="flex justify-between items-start mb-4">
+        <div className={`${colorMap[color]} p-4 rounded-2xl transition-transform group-hover:scale-110 duration-300`}>
+          {icon}
+        </div>
+        <div className="flex items-center gap-1 text-[10px] font-black text-emerald-500 bg-emerald-50 px-2 py-1 rounded-lg">
+          <FaArrowUp size={8} /> {trend}
+        </div>
+      </div>
+      <div>
+        <h2 className="font-poppins font-black text-2xl text-gray-800 tracking-tight">{value}</h2>
+        <p className="text-gray-400 text-[10px] font-black uppercase tracking-[0.15em] mt-1">{label}</p>
+      </div>
+    </div>
   );
 };
 
