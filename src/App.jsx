@@ -8,9 +8,12 @@ import "./assets/tailwind.css";
 const Dashboard = React.lazy(() => import("./pages/Dashboard"));
 const Orders = React.lazy(() => import("./pages/Orders"));
 const Customers = React.lazy(() => import("./pages/Customers"));
-const CustomersDetail = React.lazy(() => import("./pages/CustomersDetail")); // 👈 Tambah Lazy Load
+const CustomersDetail = React.lazy(() => import("./pages/CustomersDetail"));
 const Product = React.lazy(() => import("./pages/Product"));
 const ProductDetail = React.lazy(() => import("./pages/ProductDetail")); 
+
+// 👈 TAMBAHKAN LAZY LOAD UNTUK COMPONENTS DI SINI
+const Components = React.lazy(() => import("./pages/Components")); 
 
 const Login = React.lazy(() => import("./pages/auth/Login"));
 const Register = React.lazy(() => import("./pages/auth/Register"));
@@ -35,6 +38,9 @@ function App() {
           {/* PRODUCT ROUTES */}
           <Route path="product" element={<Product />} />
           <Route path="product/:id" element={<ProductDetail />} />
+
+          {/* COMPONENTS ROUTE (Sudah benar berada di dalam MainLayout agar sidebar tetap muncul) */}
+          <Route path="components" element={<Components />} />
 
           {/* ERROR PAGES */}
           <Route path="400" element={<ErrorPage code="400" title="Bad Request" description="Input tidak valid." image="https://cdn-icons-png.flaticon.com/512/595/595067.png" />} />
