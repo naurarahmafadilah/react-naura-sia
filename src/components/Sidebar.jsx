@@ -7,6 +7,7 @@ import {
   FaUserSlash,
   FaBoxOpen,
   FaCogs, // Mengimpor ikon baru untuk Fitur XYZ
+  FaCube, // 👈 Tambah ikon baru jika ingin membedakan dengan Product
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
@@ -61,6 +62,10 @@ const Sidebar = () => {
           <NavLink to="/fitur-xyz" className={menuClass}>
             <FaCogs size={18} />
             <span>Fitur XYZ</span>
+          {/* 🆕 MENU COMPONENTS BARU (Ditempatkan di bawah Customers sesuai desain) */}
+          <NavLink to="/components" className={menuClass}>
+            <FaCube size={18} /> 
+            <span>Components</span>
           </NavLink>
 
           {/* SECTION TITLE */}

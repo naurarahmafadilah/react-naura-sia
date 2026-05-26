@@ -13,6 +13,9 @@ const Product = React.lazy(() => import("./pages/Product"));
 const ProductDetail = React.lazy(() => import("./pages/ProductDetail")); 
 const FiturXYZ = React.lazy(() => import("./pages/FiturXYZ")); // 👈 1. Tambah Lazy Load untuk Fitur XYZ
 
+// 👈 TAMBAHKAN LAZY LOAD UNTUK COMPONENTS DI SINI
+const Components = React.lazy(() => import("./pages/Components")); 
+
 const Login = React.lazy(() => import("./pages/auth/Login"));
 const Register = React.lazy(() => import("./pages/auth/Register"));
 const Forgot = React.lazy(() => import("./pages/auth/Forgot"));
@@ -39,6 +42,8 @@ function App() {
 
           {/* 👈 2. Tambah Rute Baru Fitur XYZ di Sini */}
           <Route path="fitur-xyz" element={<FiturXYZ />} />
+          {/* COMPONENTS ROUTE (Sudah benar berada di dalam MainLayout agar sidebar tetap muncul) */}
+          <Route path="components" element={<Components />} />
 
           {/* ERROR PAGES */}
           <Route path="400" element={<ErrorPage code="400" title="Bad Request" description="Input tidak valid." image="https://cdn-icons-png.flaticon.com/512/595/595067.png" />} />
