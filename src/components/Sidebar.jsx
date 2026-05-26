@@ -1,11 +1,12 @@
 import {
   FaHome,
   FaClipboardList,
-  FaUsers, // Mengganti FaFileAlt agar lebih relevan untuk Customer
+  FaUsers,
   FaExclamationTriangle,
   FaLock,
   FaUserSlash,
   FaBoxOpen,
+  FaCogs, // Mengimpor ikon baru untuk Fitur XYZ
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
@@ -52,8 +53,14 @@ const Sidebar = () => {
           </NavLink>
 
           <NavLink to="/customers" className={menuClass}>
-            <FaUsers size={18} /> {/* Ikon User lebih pas untuk pelanggan */}
+            <FaUsers size={18} />
             <span>Customers</span>
+          </NavLink>
+
+          {/* MENU BARU: FITUR XYZ */}
+          <NavLink to="/fitur-xyz" className={menuClass}>
+            <FaCogs size={18} />
+            <span>Fitur XYZ</span>
           </NavLink>
 
           {/* SECTION TITLE */}
