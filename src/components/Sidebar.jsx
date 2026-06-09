@@ -8,6 +8,7 @@ import {
   FaBoxOpen,
   FaCogs,
   FaCube,
+  FaRegStickyNote, // Ditambahkan untuk menu Notes
 } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
@@ -50,7 +51,7 @@ const Sidebar = () => {
 
           <NavLink to="/product" className={menuClass}>
             <FaBoxOpen size={18} />
-            <span>Product</span>
+            <span>Products</span>
           </NavLink>
 
           <NavLink to="/customers" className={menuClass}>
@@ -58,13 +59,18 @@ const Sidebar = () => {
             <span>Customers</span>
           </NavLink>
 
-          {/* MENU BARU: FITUR XYZ */}
+          {/* MENU BARU: NOTES (Sesuai Gambar) */}
+          <NavLink to="/notes" className={menuClass}>
+            <FaRegStickyNote size={18} />
+            <span>Notes</span>
+          </NavLink>
+
+          {/* MENU TAMBAHAN */}
           <NavLink to="/fitur-xyz" className={menuClass}>
             <FaCogs size={18} />
             <span>Fitur XYZ</span>
           </NavLink>
 
-          {/* MENU COMPONENTS */}
           <NavLink to="/components" className={menuClass}>
             <FaCube size={18} /> 
             <span>Components</span>
@@ -96,7 +102,7 @@ const Sidebar = () => {
       {/* ===== BOTTOM SECTION: PROMO CARD ===== */}
       <div className="p-4 space-y-4">
         
-        {/* PROMO CARD - Menggunakan Emerald Gradient agar mewah */}
+        {/* PROMO CARD */}
         <div className="bg-gradient-to-br from-emerald-500 to-emerald-600 text-white p-5 rounded-[2rem] shadow-xl shadow-emerald-100 relative overflow-hidden">
           <div className="relative z-10">
             <p className="text-xs mb-4 leading-relaxed font-medium opacity-90">

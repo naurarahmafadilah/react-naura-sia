@@ -11,10 +11,11 @@ const Customers = React.lazy(() => import("./pages/Customers"));
 const CustomersDetail = React.lazy(() => import("./pages/CustomersDetail"));
 const Product = React.lazy(() => import("./pages/Product"));
 const ProductDetail = React.lazy(() => import("./pages/ProductDetail")); 
-const FiturXYZ = React.lazy(() => import("./pages/FiturXYZ")); // 👈 1. Tambah Lazy Load untuk Fitur XYZ
-
-// 👈 TAMBAHKAN LAZY LOAD UNTUK COMPONENTS DI SINI
+const FiturXYZ = React.lazy(() => import("./pages/FiturXYZ")); 
 const Components = React.lazy(() => import("./pages/Components")); 
+
+// Ditambahkan: Lazy load untuk halaman Notes
+const Notes = React.lazy(() => import("./pages/Notes")); 
 
 const Login = React.lazy(() => import("./pages/auth/Login"));
 const Register = React.lazy(() => import("./pages/auth/Register"));
@@ -40,9 +41,13 @@ function App() {
           <Route path="product" element={<Product />} />
           <Route path="product/:id" element={<ProductDetail />} />
 
-          {/* 👈 2. Tambah Rute Baru Fitur XYZ di Sini */}
+          {/* Ditambahkan: Rute Halaman Notes sesuai tombol Sidebar */}
+          <Route path="notes" element={<Notes />} />
+
+          {/* FITUR XYZ */}
           <Route path="fitur-xyz" element={<FiturXYZ />} />
-          {/* COMPONENTS ROUTE (Sudah benar berada di dalam MainLayout agar sidebar tetap muncul) */}
+          
+          {/* COMPONENTS ROUTE */}
           <Route path="components" element={<Components />} />
 
           {/* ERROR PAGES */}
