@@ -2,6 +2,7 @@ import React, { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import ErrorPage from "./components/ErrorPage";
 import Loading from "./components/Loading";
+import RequireAuth from "./components/RequireAuth";
 import "./assets/tailwind.css";
 
 // LAZY LOAD
@@ -29,7 +30,14 @@ function App() {
       <Routes>
 
         {/* 🔵 MAIN LAYOUT (Halaman dengan Sidebar & Navbar) */}
-        <Route path="/" element={<MainLayout />}>
+        <Route
+          path="/"
+          element={
+            <RequireAuth>
+              <MainLayout />
+            </RequireAuth>
+          }
+        >
           <Route index element={<Dashboard />} />
           <Route path="orders" element={<Orders />} />
           

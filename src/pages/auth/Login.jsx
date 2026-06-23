@@ -1,18 +1,27 @@
 import { AiOutlineLoading } from "react-icons/ai";
 import { BiErrorAlt } from "react-icons/bi";
-import { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import axios from "axios";
+import { useEffect, useState } from "react";
+import { useNavigate, useLocation, Link } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
-  /* navigate, state & handleChange*/
   const navigate = useNavigate();
+  const location = useLocation();
+  const { login, isAuthenticated } = useAuth();
+  const from = location.state?.from?.pathname || "/";
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
   const [dataForm, setDataForm] = useState({
     email: "",
     password: "",
   });
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      navigate(from, { replace: true });
+    }
+  }, [isAuthenticated, from, navigate]);
 
   const handleChange = (evt) => {
     const { name, value } = evt.target;
@@ -22,41 +31,21 @@ export default function Login() {
     });
   };
 
-  /* process form */
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     setLoading(true);
-    setError(false);
+    setError("");
 
-    axios
-      .post("https://dummyjson.com/user/login", {
-        username: dataForm.email,
-        password: dataForm.password,
-      })
-      .then((response) => {
-        // Jika status bukan 200, tampilkan pesan error
-        if (response.status !== 200) {
-          setError(response.data.message);
-          return;
-        }
-
-        // Redirect ke dashboard jika login sukses
-        navigate("/");
-      })
-      .catch((err) => {
-        if (err.response) {
-          setError(err.response.data.message || "An error occurred");
-        } else {
-          setError(err.message || "An unknown error occurred");
-        }
-      })
-      .finally(() => {
-        setLoading(false);
-      });
+    try {
+      await login({ email: dataForm.email, password: dataForm.password });
+      navigate(from, { replace: true });
+    } catch (err) {
+      setError(err.message || "Terjadi kesalahan saat login.");
+    } finally {
+      setLoading(false);
+    }
   };
 
-  /* error & loading status */
   const errorInfo = error ? (
     <div className="bg-red-200 mb-5 p-5 text-sm font-light text-gray-600 rounded flex items-center">
       <BiErrorAlt className="text-red-600 me-2 text-lg" />
@@ -78,7 +67,6 @@ export default function Login() {
       </h2>
 
       {errorInfo}
-
       {loadingInfo}
 
       <form onSubmit={handleSubmit}>
@@ -87,13 +75,14 @@ export default function Login() {
             Email Address
           </label>
           <input
-            type="text"
+            type="email"
             name="email"
             id="email"
-            className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm
-                            placeholder-gray-400"
+            value={dataForm.email}
+            className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400"
             placeholder="you@example.com"
             onChange={handleChange}
+            required
           />
         </div>
         <div className="mb-6">
@@ -102,22 +91,35 @@ export default function Login() {
           </label>
           <input
             type="password"
-            id="password"
             name="password"
-            className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm
-                            placeholder-gray-400"
+            id="password"
+            value={dataForm.password}
+            className="w-full px-4 py-2 bg-gray-50 border border-gray-300 rounded-lg shadow-sm placeholder-gray-400"
             placeholder="********"
             onChange={handleChange}
+            required
           />
         </div>
         <button
           type="submit"
-          className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4
-                        rounded-lg transition duration-300"
+          className="w-full bg-green-500 hover:bg-green-600 text-white font-semibold py-2 px-4 rounded-lg transition duration-300"
+          disabled={loading}
         >
-          Login
+          {loading ? "Memproses..." : "Login"}
         </button>
       </form>
+
+      <div className="mt-6 text-center text-sm text-gray-500">
+        Belum punya akun?{' '}
+        <Link to="/register" className="text-emerald-600 hover:underline">
+          Daftar sekarang
+        </Link>
+      </div>
+      <div className="mt-2 text-center text-sm text-gray-500">
+        <Link to="/forgot" className="text-emerald-600 hover:underline">
+          Lupa password?
+        </Link>
+      </div>
     </div>
   );
 }

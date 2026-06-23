@@ -1,8 +1,17 @@
-import { FaBell, FaEnvelope, FaCog, FaSearch, FaChevronDown } from "react-icons/fa";
+import { FaBell, FaEnvelope, FaCog, FaSearch, FaChevronDown, FaSignOutAlt } from "react-icons/fa";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useAuth } from "../context/AuthContext";
 
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    logout();
+    navigate("/login", { replace: true });
+  };
 
   return (
     <>
@@ -42,12 +51,12 @@ const Header = () => {
           {/* PROFILE SECTION */}
           <div className="flex items-center gap-3 pl-2 py-1 pr-1 rounded-2xl hover:bg-gray-50 transition-colors cursor-pointer group">
             <div className="text-right hidden md:block">
-              <p className="text-sm font-poppins font-black text-gray-800 leading-none">Naura Rahma</p>
-              <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest mt-1">Administrator</p>
+              <p className="text-sm font-poppins font-black text-gray-800 leading-none">{user?.fullName || "User"}</p>
+              <p className="text-[10px] font-bold text-emerald-500 uppercase tracking-widest mt-1">{user?.email || "Administrator"}</p>
             </div>
             <div className="relative">
               <img
-                src="https://i.pravatar.cc/150?u=naura"
+                src={`https://i.pravatar.cc/150?u=${user?.email || "naura"}`}
                 alt="profile"
                 className="w-10 h-10 rounded-2xl object-cover shadow-sm group-hover:shadow-emerald-100 transition-all"
               />
@@ -55,13 +64,21 @@ const Header = () => {
             </div>
             <FaChevronDown className="text-gray-300 text-xs group-hover:text-emerald-500 transition-colors mr-2" />
           </div>
+          <button
+            onClick={handleLogout}
+            className="inline-flex items-center gap-2 text-gray-500 hover:text-red-500 transition-colors text-sm font-semibold"
+            type="button"
+          >
+            <FaSignOutAlt />
+            Logout
+          </button>
         </div>
       </div>
 
       {/* MODAL SEARCH (Emerald Style) */}
       {open && (
         <div
-          className="fixed inset-0 z-[60] flex items-center justify-center p-4"
+          className="fixed inset-0 z-60 flex items-center justify-center p-4"
           onClick={() => setOpen(false)}
         >
           {/* Backdrop */}
